@@ -65,4 +65,92 @@
     const pieces=Array.from({length:150},()=>({x:innerWidth/2,y:innerHeight*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*11-4,g:.22,r:Math.random()*6+3,a:1,rot:Math.random()*6,vr:(Math.random()-.5)*.25,c:colors[Math.floor(Math.random()*colors.length)]}));
     let frame=0; function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);pieces.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.rot+=p.vr;p.a-=.006;ctx.save();ctx.globalAlpha=Math.max(0,p.a);ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.c;ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);ctx.restore()});if(frame++<180)requestAnimationFrame(draw);else ctx.clearRect(0,0,innerWidth,innerHeight)} draw();
   }
+
+
+  // ===== RSVP -> Google Sheets =====
+  // Dán URL Web App của Google Apps Script vào giữa hai dấu nháy bên dưới.
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrOJMIX2QZ8IdAkey5Dv7X1xzc4D55GRDMC8L43WvnVFFh-NLEb00V9Fk83Rx9Rq6F/exec';
+  const rsvpForm = $('#rsvpForm');
+  const submitRsvp = $('#submitRsvp');
+  const formStatus = $('#formStatus');
+  const messageInput = $('#guestMessage');
+  const messageCount = $('#messageCount');
+
+  messageInput?.addEventListener('input', () => {
+    messageCount.textContent = String(messageInput.value.length);
+  });
+
+  const setFieldError = (selector, message) => {
+    const el = $(selector);
+    if (el) el.textContent = message;
+  };
+
+  rsvpForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    setFieldError('#nameError', '');
+    setFieldError('#attendanceError', '');
+    formStatus.textContent = '';
+    formStatus.className = 'form-status';
+
+    const formData = new FormData(rsvpForm);
+    const name = String(formData.get('name') || '').trim();
+    const attendance = String(formData.get('attendance') || '').trim();
+    const message = String(formData.get('message') || '').trim();
+    const website = String(formData.get('website') || '').trim();
+
+    let valid = true;
+    if (name.length < 2) {
+      setFieldError('#nameError', 'Bạn vui lòng nhập họ và tên.');
+      valid = false;
+    }
+    if (!attendance) {
+      setFieldError('#attendanceError', 'Bạn vui lòng chọn một phương án.');
+      valid = false;
+    }
+    if (!valid) return;
+    if (website) return; // chống bot
+
+    if (!GOOGLE_SCRIPT_URL.startsWith('https://script.google.com/macros/s/')) {
+      formStatus.textContent = 'Chủ thiệp chưa kết nối Google Sheets. Vui lòng cấu hình URL Apps Script.';
+      formStatus.classList.add('error');
+      return;
+    }
+
+    submitRsvp.disabled = true;
+    submitRsvp.classList.add('loading');
+
+    try {
+      const payload = new URLSearchParams({
+        name,
+        attendance,
+        message,
+        pageUrl: location.href,
+        userAgent: navigator.userAgent
+      });
+
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+        body: payload.toString()
+      });
+
+      formStatus.textContent = `Cảm ơn ${name}! Mình đã nhận được xác nhận của bạn 💙`;
+      formStatus.classList.add('success');
+      rsvpForm.reset();
+      messageCount.textContent = '0';
+      launchConfetti();
+      submitRsvp.querySelector('.submit-button__text').textContent = 'Đã gửi ✓';
+      setTimeout(() => {
+        submitRsvp.querySelector('.submit-button__text').textContent = 'Gửi xác nhận';
+      }, 3500);
+    } catch (error) {
+      formStatus.textContent = 'Chưa thể gửi xác nhận. Bạn vui lòng thử lại sau.';
+      formStatus.classList.add('error');
+    } finally {
+      submitRsvp.disabled = false;
+      submitRsvp.classList.remove('loading');
+    }
+  });
+
 })();
