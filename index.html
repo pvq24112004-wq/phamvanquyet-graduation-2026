@@ -102,10 +102,62 @@
         <div class="section-heading reveal reveal-up">
           <p class="eyebrow eyebrow--blue">RSVP</p>
           <h2>Xác nhận tham dự</h2>
-          <p>Phản hồi của bạn sẽ được lưu trực tiếp vào Google Form.</p>
+          <p>Rất mong được gặp bạn trong ngày đặc biệt của mình 💙</p>
         </div>
-        <div class="form-shell reveal reveal-up">
-          <iframe title="Biểu mẫu xác nhận tham dự" src="https://docs.google.com/forms/d/e/1FAIpQLScVnoCCJNQKb-qlltM35e8S7WFeuv56BOWJq605OmrYdc2RpA/viewform?embedded=true" loading="lazy">Đang tải…</iframe>
+
+        <div class="rsvp-card reveal reveal-up">
+          <div class="rsvp-card__intro">
+            <span class="rsvp-card__icon" aria-hidden="true">✦</span>
+            <h3>Gửi lời xác nhận</h3>
+            <p>Thông tin sẽ được lưu vào Google Sheets để Quyết tiện theo dõi.</p>
+          </div>
+
+          <form id="rsvpForm" class="rsvp-form" novalidate>
+            <div class="form-group">
+              <label for="guestName">Họ và tên <span>*</span></label>
+              <div class="input-wrap">
+                <span aria-hidden="true">👤</span>
+                <input id="guestName" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Nhập họ và tên của bạn" required>
+              </div>
+              <small class="field-error" id="nameError"></small>
+            </div>
+
+            <fieldset class="form-group attendance-group">
+              <legend>Hôm đó mình có được gặp bạn không? <span>*</span></legend>
+              <div class="attendance-options">
+                <label class="attendance-option">
+                  <input type="radio" name="attendance" value="Chắc chắn là có rồi" required>
+                  <span class="attendance-option__box"><b>🥳</b><strong>Chắc chắn là có rồi</strong><small>Mình sẽ đến chung vui</small></span>
+                </label>
+                <label class="attendance-option">
+                  <input type="radio" name="attendance" value="Tiếc quá, mình bận mất rồi">
+                  <span class="attendance-option__box"><b>😢</b><strong>Tiếc quá, mình bận</strong><small>Không thể tham dự lần này</small></span>
+                </label>
+                <label class="attendance-option">
+                  <input type="radio" name="attendance" value="Chưa chắc, mình báo sau nhé">
+                  <span class="attendance-option__box"><b>😊</b><strong>Chưa chắc</strong><small>Mình sẽ báo lại sau</small></span>
+                </label>
+              </div>
+              <small class="field-error" id="attendanceError"></small>
+            </fieldset>
+
+            <div class="form-group">
+              <label for="guestMessage">Gửi mình vài lời nhắn</label>
+              <div class="input-wrap input-wrap--textarea">
+                <span aria-hidden="true">💌</span>
+                <textarea id="guestMessage" name="message" rows="5" maxlength="500" placeholder="Lời chúc của bạn dành cho Quyết..."></textarea>
+              </div>
+              <div class="character-count"><span id="messageCount">0</span>/500</div>
+            </div>
+
+            <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <button class="submit-button" id="submitRsvp" type="submit">
+              <span class="submit-button__text">Gửi xác nhận</span>
+              <span class="submit-button__loader" aria-hidden="true"></span>
+            </button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </div>
     </section>
