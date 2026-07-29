@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiệp mời tốt nghiệp - Hoàng Đức Tú Anh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c89b2f;
+      --gold-dark: #9b731f;
+      --gold-soft: #ead18a;
+      --cream: #fffaf0;
+      --paper: #fff8e8;
+      --ink: #21170f;
+      --muted: #6b5b42;
+      --green: #079148;
+      --line: rgba(200, 155, 47, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Be Vietnam Pro", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(228, 192, 92, 0.26), transparent 34rem),
+        linear-gradient(180deg, #f3ead2 0%, #fffaf0 45%, #f2e2bd 100%);
+    }
+
+    body.invite-locked {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    .app {
+      width: min(980px, 100%);
+      margin: 0 auto;
+      padding: 0 10px 42px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(18px);
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+
+    .app.unlocked {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .open-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      overflow-y: auto;
+      color: #fff4c8;
+      background:
+        linear-gradient(90deg, rgba(0, 145, 72, 0.78), rgba(0, 145, 72, 0.1) 35%, rgba(24, 14, 4, 0.56)),
+        linear-gradient(180deg, rgba(23, 13, 4, 0.2), rgba(23, 13, 4, 0.76)),
+        url("due.jpg") center / cover no-repeat;
+      transition: opacity 650ms ease, visibility 650ms ease;
+    }
+
+    .open-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .open-screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 8%, rgba(255, 238, 174, 0.55), transparent 22rem),
+        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.18), transparent 18rem);
+      pointer-events: none;
+    }
+
+    .open-stage {
+      position: relative;
+      z-index: 1;
+      width: min(720px, 100%);
+      display: grid;
+      justify-items: center;
+      gap: clamp(18px, 4vw, 30px);
+      text-align: center;
+    }
+
+    .open-brand {
+      justify-self: start;
+      text-align: left;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.32);
+    }
+
+    .open-brand .due-script {
+      font-size: clamp(42px, 10vw, 86px);
+    }
+
+    .open-brand .due-at {
+      font-size: clamp(26px, 6vw, 48px);
+    }
+
+    .open-brand .due-name {
+      font-size: clamp(34px, 8vw, 66px);
+    }
+
+    .open-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(34px, 8vw, 74px);
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      text-shadow: 0 5px 22px rgba(0, 0, 0, 0.42);
+    }
+
+    .open-envelope {
+      position: relative;
+      width: min(420px, 82vw);
+      aspect-ratio: 1.55 / 1;
+      border-radius: 16px;
+      background:
+        linear-gradient(145deg, transparent 49%, rgba(168, 119, 28, 0.45) 50%, transparent 51%),
+        linear-gradient(215deg, transparent 49%, rgba(168, 119, 28, 0.45) 50%, transparent 51%),
+        linear-gradient(180deg, #fffdf7, #ffe4a4);
+      box-shadow: 0 24px 58px rgba(35, 22, 5, 0.38), inset 0 2px 0 white;
+      transition: transform 600ms ease;
+    }
+
+    .open-envelope::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(0 0, 100% 0, 50% 56%);
+      border-radius: inherit;
+      background: linear-gradient(180deg, #fffef8, #d4a22f);
+      transform-origin: top center;
+      transition: transform 720ms cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .open-envelope.opening {
+      transform: translateY(-10px) scale(0.98);
+    }
+
+    .open-envelope.opening::before {
+      transform: rotateX(72deg);
+    }
+
+    .open-seal {
+      position: absolute;
+      left: 50%;
+      top: 58%;
+      width: clamp(70px, 16vw, 96px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      color: #fff5cc;
+      background: radial-gradient(circle at 35% 25%, #f8dd8a, #b88724 60%, #795412);
+      box-shadow: 0 10px 22px rgba(65, 42, 7, 0.32);
+    }
+
+    .open-seal svg {
+      width: 58%;
+      height: 58%;
+    }
+
+    .open-name-wrap {
+      width: min(420px, 82vw);
+      display: grid;
+      gap: 10px;
+    }
+
+    .open-name-label {
+      font-size: clamp(14px, 2.5vw, 18px);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff4c8;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      text-align: left;
+    }
+
+    .open-name-input {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 22px;
+      border-radius: 14px;
+      border: 1.5px solid rgba(255, 238, 174, 0.45);
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff4c8;
+      font-size: clamp(16px, 2.8vw, 22px);
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 500;
+      outline: none;
+      backdrop-filter: blur(6px);
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .open-name-input::placeholder {
+      color: rgba(255, 244, 200, 0.52);
+    }
+
+    .open-name-input:focus {
+      border-color: rgba(255, 238, 174, 0.8);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 0 4px rgba(255, 238, 174, 0.18);
+    }
+
+    .open-name-error {
+      display: none;
+      color: #ffcfcf;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .open-button {
+      min-height: 62px;
+      min-width: min(420px, 82vw);
+      padding: 14px 30px;
+      border-radius: 999px;
+      color: #3a2609;
+      background: linear-gradient(135deg, #b78324, #ffe8a9 52%, #bd8b28);
+      box-shadow: 0 12px 0 rgba(97, 65, 11, 0.78), 0 20px 44px rgba(0, 0, 0, 0.28);
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .open-button:active {
+      transform: translateY(4px);
+      box-shadow: 0 7px 0 rgba(97, 65, 11, 0.78), 0 14px 30px rgba(0, 0, 0, 0.26);
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+      animation: pageIn 420ms ease both;
+    }
+
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      overflow: hidden;
+      min-height: calc(100vh - 24px);
+      margin: 10px auto 0;
+      border: 2px solid var(--gold);
+      border-radius: 0 0 16px 16px;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.9), transparent 30rem),
+        linear-gradient(180deg, #fffdf7 0%, #fff8e8 100%);
+      box-shadow: 0 24px 70px rgba(91, 66, 18, 0.18);
+    }
+
+    .hero-photo {
+      position: relative;
+      min-height: clamp(260px, 48vw, 520px);
+      background:
+        linear-gradient(90deg, rgba(0, 148, 74, 0.78), rgba(0, 148, 74, 0.18) 27%, rgba(255, 255, 255, 0) 54%),
+        url("due.jpg") center / cover no-repeat;
+    }
+
+    .hero-photo::after {
+      content: "";
+      position: absolute;
+      left: -4%;
+      right: -4%;
+      bottom: -2px;
+      height: 31%;
+      background: var(--cream);
+      clip-path: ellipse(62% 70% at 50% 100%);
+      border-top: 4px solid var(--gold);
+    }
+
+    .due-mark {
+      position: absolute;
+      z-index: 1;
+      left: clamp(22px, 6vw, 58px);
+      top: clamp(18px, 5vw, 48px);
+      color: white;
+      text-align: left;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.28);
+    }
+
+    .hero-photo .due-mark,
+    .open-brand {
+      display: none;
+    }
+
+    .due-script {
+      display: block;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(36px, 7vw, 64px);
+      line-height: 1;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    .due-at {
+      display: inline-block;
+      margin-top: 4px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(22px, 4vw, 38px);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .due-name {
+      display: inline-block;
+      margin-left: 8px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(36px, 6vw, 60px);
+      font-weight: 600;
+    }
+
+    .mini-envelope {
+      position: relative;
+      z-index: 2;
+      width: min(210px, 36vw);
+      aspect-ratio: 1.62 / 1;
+      margin: -80px auto 28px;
+      border-radius: 10px;
+      background:
+        linear-gradient(145deg, transparent 49%, rgba(168, 119, 28, 0.45) 50%, transparent 51%),
+        linear-gradient(215deg, transparent 49%, rgba(168, 119, 28, 0.45) 50%, transparent 51%),
+        linear-gradient(180deg, #fffdf7, #ffe7a8);
+      box-shadow: 0 18px 38px rgba(83, 55, 10, 0.22), inset 0 1px 0 white;
+    }
+
+    .mini-envelope::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(0 0, 100% 0, 50% 54%);
+      border-radius: inherit;
+      background: linear-gradient(180deg, #fffef8, #d4a22f);
+    }
+
+    .mini-seal {
+      position: absolute;
+      left: 50%;
+      top: 59%;
+      width: 58px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      color: #fff5cc;
+      background: radial-gradient(circle at 35% 25%, #f8dd8a, #b88724 60%, #795412);
+      box-shadow: 0 8px 18px rgba(65, 42, 7, 0.28);
+    }
+
+    .mini-seal svg {
+      width: 34px;
+      height: 34px;
+    }
+
+    .invite-content {
+      padding: 0 clamp(20px, 5vw, 52px) 30px;
+      text-align: center;
+    }
+
+    .label {
+      margin-bottom: 28px;
+      color: var(--gold-dark);
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-size: clamp(16px, 2.7vw, 25px);
+    }
+
+    .label::before,
+    .label::after {
+      content: "✦";
+      margin: 0 12px;
+      color: var(--gold);
+    }
+
+    .invite-text {
+      margin-bottom: 20px;
+      color: #5c4930;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(22px, 4vw, 34px);
+      font-style: italic;
+    }
+
+    .person {
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: 18px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(42px, 8vw, 78px);
+      font-weight: 700;
+      line-height: 1.08;
+      overflow-wrap: anywhere;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin: 0 auto 26px;
+      color: var(--gold);
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      width: min(82px, 18vw);
+      height: 1px;
+      background: currentColor;
+    }
+
+    .degree {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: 12px 36px;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, #9f731e, #d9af45 50%, #a67c20);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 12px 28px rgba(142, 103, 25, 0.18);
+      font-size: clamp(16px, 2.8vw, 26px);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .school {
+      margin: 26px auto 34px;
+      color: #2d2419;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(20px, 3.3vw, 31px);
+      font-style: italic;
+      line-height: 1.65;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 0 -52px 48px;
+      padding: 34px clamp(22px, 5vw, 52px);
+      border-block: 1px solid rgba(181, 144, 66, 0.18);
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    .info-item {
+      min-height: 168px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 0 18px;
+      border-right: 1px solid rgba(200, 155, 47, 0.2);
+    }
+
+    .info-item:last-child {
+      border-right: 0;
+    }
+
+    .info-icon {
+      height: 44px;
+      display: grid;
+      place-items: center;
+      font-size: 36px;
+    }
+
+    .info-label {
+      color: var(--gold-dark);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .info-value {
+      color: #20160e;
+      font-family: "Be Vietnam Pro", system-ui, sans-serif;
+      font-size: clamp(20px, 2.8vw, 25px);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .info-sub {
+      color: #3f3325;
+      font-size: clamp(15px, 2vw, 19px);
+      line-height: 1.55;
+    }
+
+    .quote-card {
+      margin: 0 auto 34px;
+      padding: clamp(28px, 5vw, 52px);
+      border: 1px solid rgba(200, 155, 47, 0.18);
+      border-radius: 12px;
+      background: rgba(255, 253, 247, 0.72);
+      box-shadow: 0 14px 34px rgba(116, 86, 25, 0.08);
+    }
+
+    .quote-mark {
+      color: var(--gold);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 58px;
+      line-height: 0.55;
+    }
+
+    .quote-card p {
+      color: #3d3023;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(19px, 3.1vw, 29px);
+      font-style: italic;
+      line-height: 1.64;
+    }
+
+    .signature {
+      margin-top: 22px;
+      color: var(--gold-dark);
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 700;
+    }
+
+    .note {
+      max-width: 770px;
+      margin: 0 auto 26px;
+      color: #2d2419;
+      font-size: clamp(17px, 2.6vw, 24px);
+      line-height: 1.7;
+    }
+
+    .contact {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 58px;
+      margin-top: 8px;
+      padding: 12px 30px;
+      border: 1px solid rgba(200, 155, 47, 0.35);
+      border-radius: 999px;
+      color: var(--gold-dark);
+      background: rgba(255, 255, 255, 0.42);
+      text-decoration: none;
+      font-size: clamp(17px, 2.6vw, 23px);
+      font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      min-height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 30px;
+      border-radius: 999px;
+      color: #fffdf6;
+      background: linear-gradient(135deg, #8d671c, #d2a840, #9d741e);
+      box-shadow: 0 14px 28px rgba(137, 99, 23, 0.24);
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn.secondary {
+      color: var(--gold-dark);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(200, 155, 47, 0.34);
+      box-shadow: none;
+    }
+
+    .rsvp-card {
+      width: min(900px, 100%);
+      min-height: auto;
+      margin-top: 0;
+      border-radius: 28px;
+    }
+
+    .rsvp-hero {
+      position: relative;
+      min-height: clamp(250px, 43vw, 390px);
+      display: grid;
+      align-content: start;
+      padding: clamp(28px, 5vw, 52px);
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(0, 143, 72, 0.76), rgba(0, 143, 72, 0.14) 36%, rgba(255, 255, 255, 0)),
+        url("due.jpg") center / cover no-repeat;
+    }
+
+    .rsvp-hero::after {
+      content: "";
+      position: absolute;
+      left: -6%;
+      right: -6%;
+      bottom: -1px;
+      height: 32%;
+      background: var(--cream);
+      clip-path: ellipse(62% 72% at 50% 100%);
+      border-top: 3px solid var(--gold);
+    }
+
+    .rsvp-badge {
+      position: relative;
+      z-index: 2;
+      width: 132px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      margin: -72px auto 24px;
+      border-radius: 50%;
+      color: var(--gold-dark);
+      background: linear-gradient(180deg, white, #fff7e8);
+      border: 1px solid rgba(200, 155, 47, 0.22);
+      box-shadow: 0 14px 34px rgba(99, 71, 16, 0.16);
+    }
+
+    .rsvp-badge svg {
+      width: 58px;
+      height: 58px;
+    }
+
+    .rsvp-heading {
+      margin-bottom: 16px;
+      text-align: center;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(42px, 7vw, 70px);
+      line-height: 1.05;
+    }
+
+    .rsvp-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin: 0 auto 26px;
+      color: var(--gold);
+    }
+
+    .rsvp-divider::before,
+    .rsvp-divider::after {
+      content: "";
+      width: min(86px, 20vw);
+      height: 1px;
+      background: currentColor;
+    }
+
+    .rsvp-body {
+      padding: 0 clamp(24px, 7vw, 72px) clamp(34px, 7vw, 64px);
+    }
+
+    .rsvp-copy {
+      max-width: 560px;
+      margin: 0 auto 42px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+      font-size: clamp(18px, 2.8vw, 24px);
+    }
+
+    .field {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 0 22px;
+      margin-bottom: 38px;
+    }
+
+    .field-icon {
+      grid-row: span 2;
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      color: var(--gold-dark);
+      background: rgba(255, 255, 255, 0.48);
+    }
+
+    .field-icon svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .field label.field-label,
+    .choice-title {
+      color: #4b320f;
+      margin: 5px 0 18px;
+      font-size: clamp(14px, 2.1vw, 18px);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1.5px solid rgba(200, 155, 47, 0.36);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--ink);
+      padding: 18px 24px;
+      outline: none;
+      font-size: clamp(16px, 2.5vw, 22px);
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .field textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(216, 169, 67, 0.18);
+    }
+
+    .choices {
+      display: grid;
+      gap: 18px;
+    }
+
+    .choice {
+      min-height: 108px;
+      display: grid;
+      grid-template-columns: 36px 1fr 54px;
+      align-items: center;
+      gap: 22px;
+      padding: 20px 28px;
+      border-radius: 14px;
+      border: 1.5px solid rgba(159, 108, 25, 0.24);
+      background: rgba(255, 255, 255, 0.62);
+      cursor: pointer;
+      color: #282420;
+      font-size: clamp(17px, 2.7vw, 23px);
+      line-height: 1.35;
+      transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .choice:has(input:checked) {
+      border-color: var(--gold-dark);
+      background: rgba(255, 253, 246, 0.92);
+      box-shadow: 0 10px 28px rgba(139, 100, 24, 0.1);
+    }
+
+    .choice input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .radio-dot {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 1.5px solid #a8a8a8;
+      border-radius: 50%;
+      color: white;
+    }
+
+    .choice input:checked+.radio-dot {
+      border-color: var(--gold-dark);
+      background: var(--gold-dark);
+    }
+
+    .choice input:checked+.radio-dot::after {
+      content: "✓";
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .choice-icon {
+      justify-self: end;
+      color: rgba(76, 66, 55, 0.42);
+    }
+
+    .choice:has(input:checked) .choice-icon {
+      color: var(--gold-dark);
+    }
+
+    .choice-icon svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    .textarea-wrap {
+      position: relative;
+    }
+
+    .char-count {
+      position: absolute;
+      right: 18px;
+      bottom: 14px;
+      color: #918b82;
+      font-size: 15px;
+    }
+
+    .privacy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .form-error {
+      display: none;
+      margin-top: 12px;
+      color: #a33;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .success {
+      display: none;
+      padding: 30px 16px;
+      color: #4d3514;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .success h2 {
+      margin-bottom: 10px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 34px;
+    }
+
+    .music-btn {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 10;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      cursor: pointer;
+      background: linear-gradient(135deg, #8d671c, #d2a840, #9d741e);
+      box-shadow: 0 14px 30px rgba(70, 47, 8, 0.25);
+    }
+
+    .music-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    @media (max-width: 760px) {
+      .app {
+        padding: 0 8px 26px;
+      }
+
+      .open-screen {
+        padding: 16px;
+      }
+
+      .open-stage {
+        min-height: calc(100svh - 32px);
+        align-content: center;
+      }
+
+      .open-brand {
+        justify-self: center;
+        text-align: center;
+      }
+
+      .open-title {
+        letter-spacing: 0.1em;
+      }
+
+      .open-envelope {
+        width: min(350px, 84vw);
+      }
+
+      .open-button {
+        min-height: 56px;
+        font-size: 14px;
+      }
+
+      .card {
+        margin-top: 0;
+        border-radius: 0 0 14px 14px;
+      }
+
+      .hero-photo {
+        min-height: 268px;
+        background-position: 57% center;
+      }
+
+      .hero-photo::after {
+        height: 24%;
+        clip-path: ellipse(78% 72% at 50% 100%);
+      }
+
+      .due-mark {
+        left: 18px;
+        top: 18px;
+      }
+
+      .mini-envelope {
+        width: 156px;
+        margin-top: -54px;
+        margin-bottom: 22px;
+      }
+
+      .mini-seal {
+        width: 46px;
+      }
+
+      .invite-content {
+        padding: 0 18px 26px;
+      }
+
+      .label {
+        margin-bottom: 18px;
+        font-size: 16px;
+        letter-spacing: 0.18em;
+      }
+
+      .label::before,
+      .label::after {
+        margin: 0 7px;
+      }
+
+      .invite-text {
+        margin-bottom: 14px;
+        font-size: 23px;
+      }
+
+      .person {
+        font-size: clamp(38px, 10.8vw, 54px);
+      }
+
+      .degree {
+        min-height: 48px;
+        padding: 10px 20px;
+        font-size: 15px;
+      }
+
+      .school {
+        margin: 22px auto 28px;
+        font-size: 20px;
+      }
+
+      .info-grid {
+        grid-template-columns: repeat(3, 1fr);
+        margin: 0 -18px 34px;
+        padding: 20px 4px;
+      }
+
+      .info-item {
+        min-height: auto;
+        padding: 8px 4px;
+        border-right: 1px solid rgba(200, 155, 47, 0.2);
+        border-bottom: 0;
+      }
+
+      .info-item:last-child {
+        border-right: 0;
+      }
+
+      .info-icon {
+        height: 32px;
+        font-size: 24px;
+      }
+
+      .info-label {
+        font-size: 11px;
+      }
+
+      .quote-card {
+        padding: 28px 18px;
+      }
+
+      .note {
+        font-size: 17px;
+      }
+
+      .contact {
+        width: 100%;
+        padding: 12px 18px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .rsvp-hero {
+        min-height: 250px;
+        padding: 26px;
+        background-position: 57% center;
+      }
+
+      .rsvp-hero::after {
+        height: 25%;
+        clip-path: ellipse(78% 72% at 50% 100%);
+      }
+
+      .rsvp-badge {
+        width: 104px;
+        margin-top: -58px;
+      }
+
+      .rsvp-badge svg {
+        width: 46px;
+        height: 46px;
+      }
+
+      .rsvp-body {
+        padding: 0 18px 34px;
+      }
+
+      .rsvp-copy {
+        margin-bottom: 32px;
+      }
+
+      .field {
+        grid-template-columns: 48px 1fr;
+        gap: 0 12px;
+        margin-bottom: 30px;
+      }
+
+      .field-icon {
+        width: 42px;
+        height: 42px;
+      }
+
+      .field-icon svg {
+        width: 23px;
+        height: 23px;
+      }
+
+      .field label.field-label,
+      .choice-title {
+        margin: 2px 0 14px;
+        letter-spacing: 0.1em;
+      }
+
+      .field input,
+      .field textarea {
+        padding: 15px 16px;
+      }
+
+      .choice {
+        min-height: 82px;
+        grid-template-columns: 28px 1fr 38px;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .radio-dot {
+        width: 24px;
+        height: 24px;
+      }
+
+      .choice-icon svg {
+        width: 34px;
+        height: 34px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .hero-photo {
+        min-height: 240px;
+      }
+
+      .due-script {
+        font-size: 40px;
+      }
+
+      .due-at {
+        font-size: 25px;
+      }
+
+      .due-name {
+        font-size: 34px;
+      }
+
+      .person {
+        font-size: 38px;
+      }
+
+      .quote-card p {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        background:
+          radial-gradient(circle at 50% 0%, rgba(228, 192, 92, 0.22), transparent 22rem),
+          linear-gradient(180deg, #f3ead2 0%, #fffaf0 45%, #f2e2bd 100%);
+      }
+
+      .app {
+        width: 100%;
+        padding: 0 16px 32px;
+      }
+
+      .open-screen {
+        padding: 16px;
+        background-position: 58% center;
+      }
+
+      .open-stage {
+        width: 100%;
+        min-height: calc(100svh - 32px);
+        gap: 24px;
+        align-content: center;
+      }
+
+      .open-title {
+        font-size: clamp(32px, 10vw, 42px);
+        letter-spacing: 0.08em;
+        line-height: 1.12;
+      }
+
+      .open-envelope {
+        width: min(100%, 326px);
+        border-radius: 14px;
+      }
+
+      .open-seal {
+        width: 72px;
+      }
+
+      .open-button {
+        width: 100%;
+        min-width: 0;
+        min-height: 56px;
+        padding: 14px 18px;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+      }
+
+      .card {
+        width: 100%;
+        min-height: auto;
+        margin: 0;
+        border-width: 1.5px;
+        border-radius: 22px;
+      }
+
+      .hero-photo {
+        min-height: 248px;
+        background-position: 58% center;
+      }
+
+      .hero-photo::after {
+        height: 22%;
+        clip-path: ellipse(88% 72% at 50% 100%);
+      }
+
+      .mini-envelope {
+        width: 144px;
+        margin: -48px auto 24px;
+      }
+
+      .mini-seal {
+        width: 44px;
+      }
+
+      .invite-content {
+        padding: 0 16px 32px;
+      }
+
+      .label {
+        margin-bottom: 18px;
+        font-size: 14px;
+        letter-spacing: 0.16em;
+      }
+
+      .invite-text {
+        margin-bottom: 14px;
+        font-size: 22px;
+        line-height: 1.35;
+      }
+
+      .person {
+        margin-bottom: 16px;
+        font-size: clamp(34px, 10vw, 42px);
+        line-height: 1.12;
+      }
+
+      .divider {
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .degree {
+        width: 100%;
+        min-height: 52px;
+        padding: 12px 16px;
+        font-size: 14px;
+        line-height: 1.25;
+      }
+
+      .school {
+        margin: 24px auto 32px;
+        font-size: 18px;
+        line-height: 1.62;
+      }
+
+      .info-grid {
+        grid-template-columns: repeat(3, 1fr);
+        margin: 0 -16px 32px;
+        padding: 16px 4px;
+      }
+
+      .info-item {
+        min-height: auto;
+        gap: 6px;
+        padding: 8px 2px;
+        border-right: 1px solid rgba(200, 155, 47, 0.2);
+        border-bottom: 0;
+      }
+
+      .info-item:last-child {
+        border-right: 0;
+      }
+
+      .info-icon {
+        height: 28px;
+        font-size: 20px;
+      }
+
+      .info-label {
+        font-size: 10px;
+        letter-spacing: 0.08em;
+      }
+
+      .info-value {
+        font-size: 14px;
+      }
+
+      .info-sub {
+        font-size: 11px;
+      }
+
+      .quote-card {
+        margin-bottom: 32px;
+        padding: 28px 16px;
+        border-radius: 12px;
+      }
+
+      .quote-mark {
+        font-size: 46px;
+      }
+
+      .quote-card p {
+        font-size: 18px;
+        line-height: 1.68;
+      }
+
+      .signature {
+        font-size: 20px;
+      }
+
+      .note {
+        margin-bottom: 24px;
+        font-size: 16px;
+        line-height: 1.72;
+      }
+
+      .contact {
+        width: 100%;
+        min-height: 52px;
+        padding: 12px 16px;
+        font-size: 16px;
+      }
+
+      .actions {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .btn {
+        width: 100%;
+        min-height: 54px;
+        padding: 12px 16px;
+        font-size: 15px;
+      }
+
+      .rsvp-card {
+        border-radius: 22px;
+      }
+
+      .rsvp-hero {
+        min-height: 238px;
+        padding: 24px 16px;
+        background-position: 58% center;
+      }
+
+      .rsvp-hero::after {
+        height: 23%;
+        clip-path: ellipse(88% 72% at 50% 100%);
+      }
+
+      .rsvp-badge {
+        width: 92px;
+        margin: -50px auto 24px;
+      }
+
+      .rsvp-badge svg {
+        width: 42px;
+        height: 42px;
+      }
+
+      .rsvp-body {
+        padding: 0 16px 32px;
+      }
+
+      .rsvp-heading {
+        margin-bottom: 14px;
+        font-size: clamp(34px, 10vw, 42px);
+        line-height: 1.12;
+      }
+
+      .rsvp-divider {
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .rsvp-copy {
+        margin-bottom: 32px;
+        font-size: 17px;
+        line-height: 1.65;
+      }
+
+      .field {
+        grid-template-columns: 44px 1fr;
+        column-gap: 12px;
+        margin-bottom: 32px;
+      }
+
+      .field-icon {
+        width: 44px;
+        height: 44px;
+      }
+
+      .field-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .field label.field-label,
+      .choice-title {
+        margin: 2px 0 14px;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        line-height: 1.35;
+      }
+
+      .field input,
+      .field textarea {
+        min-height: 52px;
+        padding: 14px 16px;
+        font-size: 16px;
+        border-radius: 12px;
+      }
+
+      .textarea-wrap,
+      .choices {
+        min-width: 0;
+      }
+
+      .field textarea {
+        min-height: 132px;
+        padding-bottom: 34px;
+      }
+
+      .choices {
+        gap: 12px;
+      }
+
+      .choice {
+        min-height: 76px;
+        grid-template-columns: 26px 1fr 34px;
+        gap: 12px;
+        padding: 14px;
+        font-size: 16px;
+        border-radius: 12px;
+      }
+
+      .radio-dot {
+        width: 24px;
+        height: 24px;
+      }
+
+      .choice input:checked+.radio-dot::after {
+        font-size: 15px;
+      }
+
+      .choice-icon svg {
+        width: 32px;
+        height: 32px;
+      }
+
+      .char-count {
+        right: 14px;
+        bottom: 12px;
+        font-size: 13px;
+      }
+
+      .privacy {
+        margin-top: 24px;
+        font-size: 14px;
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      .success {
+        padding: 28px 0;
+      }
+
+      .success h2 {
+        font-size: 30px;
+      }
+
+      .music-btn {
+        right: 16px;
+        bottom: 16px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="open-screen" id="open-screen" aria-label="Mở thiệp mời">
+    <div class="open-stage">
+      <h1 class="open-title">Bạn có một<br>thiệp mời</h1>
+
+      <div class="open-envelope" id="open-envelope" aria-hidden="true">
+        <div class="open-seal">
+          <svg viewBox="0 0 64 64">
+            <path d="M32 11L7 24l25 13 25-13L32 11z" fill="currentColor" opacity="0.95" />
+            <path d="M18 31v12c6 7 22 7 28 0V31L32 38 18 31z" fill="currentColor" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="open-name-wrap">
+        <label class="open-name-label" for="visitor-name">✦ Nhập tên của bạn để mở thiệp ✦</label>
+        <input class="open-name-input" id="visitor-name" type="text" autocomplete="name"
+          placeholder="Họ và tên của bạn..." maxlength="80">
+        <span class="open-name-error" id="open-name-error">Bạn chưa nhập tên, điền vào rồi mở thiệp nhé 💌</span>
+      </div>
+
+      <button class="open-button" id="open-invite-btn" type="button">Mở thiệp của tôi ✉</button>
+    </div>
+  </section>
+
+  <div class="app" id="app">
+    <main class="view active" id="invite-view">
+      <article class="card">
+        <section class="hero-photo" aria-label="Đại học Kinh tế Đà Nẵng">
+        </section>
+
+        <div class="mini-envelope" aria-hidden="true">
+          <div class="mini-seal">
+            <svg viewBox="0 0 64 64">
+              <path d="M32 11L7 24l25 13 25-13L32 11z" fill="currentColor" opacity="0.95" />
+              <path d="M18 31v12c6 7 22 7 28 0V31L32 38 18 31z" fill="currentColor" />
+            </svg>
+          </div>
+        </div>
+
+        <section class="invite-content">
+          <div class="label">Thiệp mời</div>
+          <p class="invite-text">Trân trọng kính mời</p>
+          <h1 class="person" id="invited-person-name">🎓</h1>
+          <div class="divider">✦</div>
+          <div class="degree">Lễ tốt nghiệp đại học</div>
+          <p class="school">
+            Chuyên ngành Fintech - Công nghệ Tài chính<br>
+            Đại học Kinh tế - Đại học Đà Nẵng
+          </p>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-icon">🗓️</div>
+              <div class="info-label">Ngày</div>
+              <div class="info-value">Thứ Năm<br>25/06/2026</div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">🕥</div>
+              <div class="info-label">Giờ</div>
+              <div class="info-value">11:30 sáng</div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">📍</div>
+              <div class="info-label">Địa điểm</div>
+              <div class="info-value">Sảnh A<br>71 Ngũ Hành Sơn, Đà Nẵng</div>
+            </div>
+          </div>
+
+          <div class="quote-card">
+            <div class="quote-mark">“</div>
+            <p>
+              Bốn năm đại học là một chặng đường dài với nhiều thử thách và nỗ lực, và ngày tốt nghiệp hôm nay là cột
+              mốc khép lại hành trình ấy. Nhìn lại quãng thời gian qua, điều mình trân quý nhất không chỉ là thành quả
+              đạt được, mà là sự đồng hành, ủng hộ và tình yêu thương của tất cả mọi người. Sự sát cánh của gia đình,
+              người thân, bạn bè, cùng những lời động viên đều là hành trang vô giá. Chân thành cảm ơn mọi người vì đã
+              luôn ở bên và tạo nên ý nghĩa cho cột mốc đáng nhớ này của mình.
+            </p>
+            <div class="signature">- Hoàng Đức Tú Anh -</div>
+          </div>
+
+          <p class="note">
+            Sự hiện diện của bạn là niềm vinh hạnh và nguồn động viên to lớn nhất đối với mình trong ngày đặc biệt này.
+            Mình mong được đón tiếp và lưu giữ những khoảnh khắc đáng nhớ cùng bạn.
+          </p>
+
+          <a class="contact" href="tel:0865734365">📞 Liên hệ: 0865 734 365</a>
+
+          <div class="actions">
+            <button class="btn" id="next-btn" type="button">Next <span>›</span></button>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <section class="view" id="rsvp-view">
+      <article class="card rsvp-card">
+        <header class="rsvp-hero">
+        </header>
+        <section class="rsvp-body">
+          <div class="rsvp-badge" aria-hidden="true">
+            <svg viewBox="0 0 64 64">
+              <path d="M12 24l20-15 20 15v27H12V24z" fill="currentColor" opacity="0.95" />
+              <path d="M12 24l20 16 20-16M12 51l16-18M52 51L36 33" fill="none" stroke="#fff8e6" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h1 class="rsvp-heading">Xác nhận tham dự</h1>
+          <div class="rsvp-divider">✦</div>
+          <p class="rsvp-copy">Điền thông tin bên dưới để mình biết hôm đó có được gặp bạn không nhé 👀</p>
+
+          <div id="rsvp-form">
+            <div class="field">
+              <div class="field-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20 21a8 8 0 0 0-16 0" fill="currentColor" />
+                  <circle cx="12" cy="8" r="4" fill="currentColor" />
+                </svg>
+              </div>
+              <label class="field-label" for="guest-name">1. Họ và tên bạn</label>
+              <input id="guest-name" type="text" autocomplete="name" placeholder="Nhớ ghi đúng tên nhá">
+            </div>
+
+            <div class="field">
+              <div class="field-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7 2v3M17 2v3M4 8h16M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2z" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M8 15l2.4 2.4L16 12" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="choice-title">2. Hôm đó mình có được gặp bạn không ta? ✨</div>
+              <div class="choices">
+                <label class="choice">
+                  <input type="radio" name="attend" value="Có, mình sẽ đến">
+                  <span class="radio-dot"></span>
+                  <span>Có, mình sẽ đến!</span>
+                  <span class="choice-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M4 21l4-10 5 5-9 5zM13 7l4 4M14 3l1 3M21 9l-3 1M19 4l-3 3" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="attend" value="Rất tiếc mình bận">
+                  <span class="radio-dot"></span>
+                  <span>Rất tiếc, mình bận không đến được</span>
+                  <span class="choice-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" />
+                      <path d="M8 10h.01M16 10h.01M8 17c1.1-1.2 2.4-1.8 4-1.8s2.9.6 4 1.8" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  </span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="attend" value="Chưa chắc, sẽ báo sau">
+                  <span class="radio-dot"></span>
+                  <span>Chưa chắc, mình sẽ báo lại sau nhé</span>
+                  <span class="choice-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" />
+                      <path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 5h16v12H8l-4 4V5z" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linejoin="round" />
+                  <path d="M8 9h8M8 13h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <label class="field-label" for="msg">3. Đôi lời muốn lói</label>
+              <div class="textarea-wrap">
+                <textarea id="msg" rows="4" maxlength="2000"
+                  placeholder="Suy nghĩ trong bạn về tôi là gì ..."></textarea>
+                <span class="char-count" id="char-count">0/2000</span>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="btn secondary" id="back-btn" type="button">← Quay lại</button>
+              <button class="btn" id="send-btn" type="button">✈ Gửi xác nhận</button>
+            </div>
+
+            <div class="privacy">🔒 Thông tin của bạn sẽ được bảo mật</div>
+
+            <p class="form-error" id="form-error">Bạn bỏ sót gì rồi nha.</p>
+          </div>
+
+          <div class="success" id="success">
+            <h2>Cảm ơn bạn rất nhiều!</h2>
+            <p id="success-msg"></p>
+            <div class="actions">
+              <button class="btn secondary" id="done-back-btn" type="button">Xem lại thiệp</button>
+            </div>
+          </div>
+        </section>
+      </article>
+    </section>
+  </div>
+
+  <button class="music-btn" id="music-btn" type="button" aria-label="Bật hoặc tắt nhạc">
+    <svg id="music-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+  </button>
+
+  <audio id="bg-music" loop preload="auto">
+    <source src="totnghiep.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const app = document.getElementById("app");
+    const openScreen = document.getElementById("open-screen");
+    const openEnvelope = document.getElementById("open-envelope");
+    const openInviteBtn = document.getElementById("open-invite-btn");
+    const inviteView = document.getElementById("invite-view");
+    const rsvpView = document.getElementById("rsvp-view");
+    const nextBtn = document.getElementById("next-btn");
+    const backBtn = document.getElementById("back-btn");
+    const doneBackBtn = document.getElementById("done-back-btn");
+    const sendBtn = document.getElementById("send-btn");
+    const musicBtn = document.getElementById("music-btn");
+    const musicIcon = document.getElementById("music-icon");
+    const audio = document.getElementById("bg-music");
+    const messageInput = document.getElementById("msg");
+    const charCount = document.getElementById("char-count");
+
+    let musicPlaying = false;
+    audio.volume = 0.48;
+
+    function setMusicIcon(isPlaying) {
+      musicIcon.innerHTML = isPlaying
+        ? '<path d="M11 5L6 9H3v6h3l5 4V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 9a5 5 0 010 6M19 6a9 9 0 010 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
+        : '<path d="M11 5L6 9H3v6h3l5 4V5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M18 9l-5 5M13 9l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+    }
+
+    async function playMusic() {
+      try {
+        await audio.play();
+        musicPlaying = true;
+      } catch (error) {
+        musicPlaying = false;
+      }
+      setMusicIcon(musicPlaying);
+    }
+
+    function showView(view) {
+      inviteView.classList.toggle("active", view === "invite");
+      rsvpView.classList.toggle("active", view === "rsvp");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openInvite() {
+      const visitorNameInput = document.getElementById("visitor-name");
+      const nameError = document.getElementById("open-name-error");
+      const visitorName = visitorNameInput.value.trim();
+
+      if (!visitorName) {
+        nameError.style.display = "block";
+        visitorNameInput.focus();
+        return;
+      }
+      nameError.style.display = "none";
+
+      // Cập nhật tên trong thiệp
+      const personEl = document.getElementById("invited-person-name");
+      personEl.textContent = visitorName + " 🎓";
+
+      openEnvelope.classList.add("opening");
+      openInviteBtn.disabled = true;
+      playMusic();
+
+      setTimeout(() => {
+        openScreen.classList.add("hidden");
+        app.classList.add("unlocked");
+        document.body.classList.remove("invite-locked");
+        showView("invite");
+      }, 720);
+    }
+
+    async function submitRSVP() {
+      const name = document.getElementById("guest-name").value.trim();
+      const attend = document.querySelector('input[name="attend"]:checked');
+      const message = document.getElementById("msg").value.trim();
+      const error = document.getElementById("form-error");
+
+      if (!name || !attend) {
+        error.style.display = "block";
+        return;
+      }
+
+      error.style.display = "none";
+
+      // Gửi dữ liệu lên Google Sheet
+      const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwZPb8XunTCKTkr2gT6x5oDOR1zhXvaQCGOicu9c7C_HIlHkX7sWOiPT8PKwuNZdp-O/exec";
+      try {
+        await fetch(WEBHOOK_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            attend: attend.value,
+            message
+          })
+        });
+      } catch (err) {
+        console.warn("Webhook lỗi:", err);
+      }
+
+      document.getElementById("rsvp-form").style.display = "none";
+      document.getElementById("success").style.display = "block";
+
+      const response = attend.value.startsWith("Có")
+        ? `Mình rất vui vì ${name} sẽ có mặt trong ngày đặc biệt này. Hẹn gặp bạn tại lễ tốt nghiệp nhé.`
+        : `Cảm ơn ${name} đã phản hồi. Mình rất trân trọng tình cảm của bạn.`;
+
+      document.getElementById("success-msg").textContent = message
+        ? `${response} Lời nhắn của bạn đã được ghi lại trên thiệp này.`
+        : response;
+    }
+
+    openInviteBtn.addEventListener("click", openInvite);
+    document.getElementById("visitor-name").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") openInvite();
+    });
+    nextBtn.addEventListener("click", () => showView("rsvp"));
+    backBtn.addEventListener("click", () => showView("invite"));
+    doneBackBtn.addEventListener("click", () => showView("invite"));
+    sendBtn.addEventListener("click", submitRSVP);
+    messageInput.addEventListener("input", () => {
+      charCount.textContent = `${messageInput.value.length}/300`;
+    });
+    musicBtn.addEventListener("click", () => {
+      if (musicPlaying) {
+        audio.pause();
+        musicPlaying = false;
+        setMusicIcon(false);
+      } else {
+        playMusic();
+      }
+    });
+    document.querySelector('input[name="attend"][value="Có, mình sẽ đến"]').checked = true;
+    document.body.classList.add("invite-locked");
+    setMusicIcon(false);
+  </script>
+</body>
+
+</html>
