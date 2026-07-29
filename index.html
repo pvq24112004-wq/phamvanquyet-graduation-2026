@@ -1,662 +1,141 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Thiệp mời tốt nghiệp | Phạm Văn Quyết</title>
-
-    <meta name="description"
-        content="Thiệp mời lễ tốt nghiệp của Phạm Văn Quyết - Trường Đại học Văn hóa TP. Hồ Chí Minh">
-
-    <meta name="theme-color" content="#005BAC">
-
-    <!-- Google Font -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- AOS -->
-
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-    <!-- Lightbox -->
-
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
-
-    <!-- Font Awesome -->
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <!-- CSS -->
-
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <link rel="stylesheet" href="assets/css/responsive.css">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#204098">
+  <meta name="description" content="Thiệp mời lễ tốt nghiệp của Phạm Văn Quyết – Trường Đại học Văn hóa TP. Hồ Chí Minh.">
+  <title>Thiệp mời tốt nghiệp | Phạm Văn Quyết</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
+  <div class="loading-screen" id="loadingScreen" aria-hidden="true">
+    <img src="assets/images/logo-truong.webp" alt="">
+    <div class="loading-line"><span></span></div>
+    <p>Đang chuẩn bị thiệp mời…</p>
+  </div>
 
-    <!-- ===========================
-            LOADING SCREEN
-    ============================ -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
-    <div id="loader">
-
-        <div class="loader-content">
-
-            <img src="assets/images/logo-truong.webp" alt="Logo">
-
-            <span>Graduation Ceremony</span>
-
-        </div>
-
+  <section class="hero" id="top" aria-label="Thiệp mời tốt nghiệp">
+    <img class="hero__image" src="assets/images/TRUONG.jpg" alt="Trường Đại học Văn hóa TP. Hồ Chí Minh">
+    <div class="hero__overlay"></div>
+    <div class="hero__content reveal reveal-up">
+      <img class="hero__logo" src="assets/images/logo-truong.webp" alt="Logo Trường Đại học Văn hóa TP. Hồ Chí Minh">
+      <p class="eyebrow">Graduation Invitation · 2026</p>
+      <h1>Phạm Văn Quyết</h1>
+      <p class="hero__major">Truyền thông Văn hóa</p>
+      <p class="hero__school">Trường Đại học Văn hóa TP. Hồ Chí Minh</p>
+      <div class="hero__meta" aria-label="Thời gian diễn ra buổi lễ">
+        <span>Thứ Bảy, 08.08.2026</span><i></i><span>09:30 sáng</span>
+      </div>
+      <button class="button button--light" id="openInvitation" type="button">
+        <span>Mở thiệp</span><span aria-hidden="true">↓</span>
+      </button>
     </div>
+    <a class="hero__scroll" href="#message" aria-label="Cuộn xuống nội dung thiệp"><span></span></a>
+  </section>
 
-    <!-- ===========================
-          SCROLL PROGRESS
-    ============================ -->
-
-    <div id="progress-bar"></div>
-
-    <!-- ===========================
-            BACK TO TOP
-    ============================ -->
-
-    <button id="backToTop">
-
-        <i class="fa-solid fa-arrow-up"></i>
-
-    </button>
-
-    <!-- ===========================
-            AUDIO
-    ============================ -->
-
-    <audio id="bgMusic" loop>
-
-        <source src="assets/audio/graduation.mp3" type="audio/mpeg">
-
-    </audio>
-
-    <!-- ===========================
-              HERO
-    ============================ -->
-
-    <section class="hero">
-
-        <div class="overlay"></div>
-
-        <img
-            src="assets/images/TRUONG.jpg"
-            alt="Trường Đại học Văn hóa TP.HCM"
-            class="hero-bg">
-
-        <div class="hero-content" data-aos="fade-up">
-
-            <img
-                src="assets/images/logo-truong.webp"
-                class="school-logo"
-                alt="Logo trường">
-
-            <span class="hero-subtitle">
-
-                Graduation Ceremony
-
-            </span>
-
-            <h1>
-
-                PHẠM VĂN QUYẾT
-
-            </h1>
-
-            <p class="major">
-
-                Truyền thông Văn hóa
-
-            </p>
-
-            <p class="school">
-
-                Trường Đại học Văn hóa
-                TP. Hồ Chí Minh
-
-            </p>
-
-            <div class="hero-date">
-
-                <i class="fa-regular fa-calendar"></i>
-
-                Thứ Bảy • 08/08/2026
-
-            </div>
-
-            <div class="hero-time">
-
-                <i class="fa-regular fa-clock"></i>
-
-                09:30 sáng
-
-            </div>
-
-            <button id="openInvitation">
-
-                MỞ THIỆP
-
-            </button>
-
+  <main id="invitationContent">
+    <section class="section intro" id="message">
+      <div class="container container--narrow">
+        <div class="section-heading reveal reveal-up">
+          <p class="eyebrow eyebrow--blue">Lời mời</p>
+          <h2>Một cột mốc đáng nhớ</h2>
+          <div class="ornament" aria-hidden="true"><span></span><b>✦</b><span></span></div>
         </div>
-
-        <div class="scroll-indicator">
-
-            <span>Scroll</span>
-
-            <i class="fa-solid fa-chevron-down"></i>
-
-        </div>
-
-    </section>
-     <!-- ==========================================
-                WELCOME SECTION
-    =========================================== -->
-
-    <section class="welcome section" id="welcome">
-
-        <div class="container">
-
-            <div class="section-heading" data-aos="fade-up">
-
-                <span class="section-subtitle">
-                    Graduation Invitation
-                </span>
-
-                <h2>
-                    Một cột mốc đáng nhớ
-                </h2>
-
-            </div>
-
-            <div class="message-card glass" data-aos="zoom-in">
-
-                <i class="fa-solid fa-graduation-cap quote-icon"></i>
-
-                <p>
-
-                    Vậy là mình đã hoàn thành chặng đường 4 năm tại giảng đường.
-                    Thời gian qua tuy không dài nhưng cũng không ngắn,
-                    đủ để bản thân mình trưởng thành và hoàn thiện hơn.
-
-                </p>
-
-                <p>
-
-                    Trong quãng thời gian đó,
-                    không thể thiếu sự đồng hành của gia đình
-                    cũng như những người bạn trân quý.
-                    Tất cả đã tạo cho mình một quãng đời sinh viên thật đẹp.
-
-                </p>
-
-                <p>
-
-                    Chân thành cảm ơn mọi người vì đã luôn ở bên cạnh mình
-                    trong suốt hành trình ấy.
-
-                </p>
-
-                <p>
-
-                    Ngày tốt nghiệp sắp tới,
-                    rất mong được gặp mọi người
-                    để cùng chia sẻ niềm vui
-                    trong cột mốc đặc biệt này.
-
-                </p>
-
-            </div>
-
-        </div>
-
+        <article class="letter reveal reveal-up">
+          <span class="letter__mark" aria-hidden="true">“</span>
+          <p>Vậy là mình đã hoàn thành chặng đường 4 năm tại giảng đường. Thời gian qua tuy không dài nhưng cũng không ngắn, đủ để bản thân mình trưởng thành và hoàn thiện hơn.</p>
+          <p>Trong quãng thời gian đó, không thể thiếu sự đồng hành của gia đình cũng như những người bạn trân quý, tất cả đã tạo cho mình một quãng đời sinh viên thật đẹp.</p>
+          <p>Chân thành cảm ơn mọi người vì đã ở bên cạnh mình trong thời gian qua. Ngày tốt nghiệp sắp tới, mọi người hãy cùng đến chung vui cho cột mốc đáng nhớ của mình nhé.</p>
+          <p class="letter__signature">— Phạm Văn Quyết</p>
+        </article>
+      </div>
     </section>
 
-
-
-
-
-    <!-- ==========================================
-                COUNTDOWN
-    =========================================== -->
-
-    <section class="countdown section">
-
-        <div class="container">
-
-            <div class="section-heading" data-aos="fade-up">
-
-                <span class="section-subtitle">
-
-                    Countdown
-
-                </span>
-
-                <h2>
-
-                    Cùng đếm ngược nhé
-
-                </h2>
-
-            </div>
-
-            <div class="countdown-wrapper"
-                data-aos="fade-up"
-                data-aos-delay="200">
-
-                <div class="time-box">
-
-                    <span id="days">00</span>
-
-                    <small>Ngày</small>
-
-                </div>
-
-                <div class="time-box">
-
-                    <span id="hours">00</span>
-
-                    <small>Giờ</small>
-
-                </div>
-
-                <div class="time-box">
-
-                    <span id="minutes">00</span>
-
-                    <small>Phút</small>
-
-                </div>
-
-                <div class="time-box">
-
-                    <span id="seconds">00</span>
-
-                    <small>Giây</small>
-
-                </div>
-
-            </div>
-
-            <div
-                id="countdown-message"
-                class="countdown-message">
-
-            </div>
-
+    <section class="section countdown-section">
+      <div class="container">
+        <div class="section-heading reveal reveal-up">
+          <p class="eyebrow eyebrow--blue">Đếm ngược</p>
+          <h2>Hẹn gặp mọi người tại buổi lễ</h2>
         </div>
-
-    </section>
-    <!-- ==========================================
-                EVENT INFORMATION
-    =========================================== -->
-
-    <section class="event section">
-
-        <div class="container">
-
-            <div class="section-heading"
-                data-aos="fade-up">
-
-                <span class="section-subtitle">
-
-                    Event Information
-
-                </span>
-
-                <h2>
-
-                    Thông tin buổi lễ
-
-                </h2>
-
-            </div>
-
-            <div class="event-card glass"
-                data-aos="fade-up">
-
-                <div class="event-item">
-
-                    <i class="fa-regular fa-calendar"></i>
-
-                    <div>
-
-                        <h4>
-
-                            Thời gian
-
-                        </h4>
-
-                        <p>
-
-                            Thứ Bảy,
-                            ngày 08/08/2026
-
-                        </p>
-
-                        <p>
-
-                            09:30 sáng
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="event-item">
-
-                    <i class="fa-solid fa-location-dot"></i>
-
-                    <div>
-
-                        <h4>
-
-                            Địa điểm
-
-                        </h4>
-
-                        <p>
-
-                            Trường Đại học Văn hóa
-                            TP. Hồ Chí Minh
-
-                        </p>
-
-                        <p>
-
-                            Cơ sở 1
-
-                        </p>
-
-                        <p>
-
-                            51 Quốc Hương,
-                            phường An Khánh,
-                            TP. Hồ Chí Minh
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-
-            <div class="event-buttons"
-                data-aos="fade-up">
-
-                <a
-                    href="https://maps.app.goo.gl/Lz5Hf9SBdwjTcXMJ9"
-                    target="_blank"
-                    class="btn-primary">
-
-                    <i class="fa-solid fa-map-location-dot"></i>
-
-                    Chỉ đường
-
-                </a>
-
-                <a
-                    href="tel:0967102684"
-                    class="btn-outline">
-
-                    <i class="fa-solid fa-phone"></i>
-
-                    Gọi ngay
-
-                </a>
-
-            </div>
-
+        <div class="countdown reveal reveal-up" id="countdown" aria-live="polite">
+          <div class="countdown__item"><strong id="days">00</strong><span>Ngày</span></div>
+          <div class="countdown__item"><strong id="hours">00</strong><span>Giờ</span></div>
+          <div class="countdown__item"><strong id="minutes">00</strong><span>Phút</span></div>
+          <div class="countdown__item"><strong id="seconds">00</strong><span>Giây</span></div>
         </div>
-
-    </section>
-     <!-- ==========================================
-                    GALLERY
-    =========================================== -->
-
-    <section class="gallery section" id="gallery">
-
-        <div class="container">
-
-            <div class="section-heading" data-aos="fade-up">
-
-                <span class="section-subtitle">
-                    Gallery
-                </span>
-
-                <h2>
-                    Một vài khoảnh khắc
-                </h2>
-
-            </div>
-
-            <div class="gallery-grid">
-
-                <a href="assets/images/gallery/01.jpg"
-                    class="glightbox"
-                    data-gallery="graduation">
-
-                    <img
-                        src="assets/images/gallery/01.jpg"
-                        loading="lazy"
-                        alt="Gallery">
-
-                </a>
-
-                <a href="assets/images/gallery/02.jpg"
-                    class="glightbox"
-                    data-gallery="graduation">
-
-                    <img
-                        src="assets/images/gallery/02.jpg"
-                        loading="lazy"
-                        alt="Gallery">
-
-                </a>
-
-                <a href="assets/images/gallery/03.jpg"
-                    class="glightbox"
-                    data-gallery="graduation">
-
-                    <img
-                        src="assets/images/gallery/03.jpg"
-                        loading="lazy"
-                        alt="Gallery">
-
-                </a>
-
-                <a href="assets/images/gallery/04.jpg"
-                    class="glightbox"
-                    data-gallery="graduation">
-
-                    <img
-                        src="assets/images/gallery/04.jpg"
-                        loading="lazy"
-                        alt="Gallery">
-
-                </a>
-
-                <a href="assets/images/gallery/05.jpg"
-                    class="glightbox"
-                    data-gallery="graduation">
-
-                    <img
-                        src="assets/images/gallery/05.jpg"
-                        loading="lazy"
-                        alt="Gallery">
-
-                </a>
-
-                <a href="assets/images/gallery/06.jpg"
-                    class="glightbox"
-                    data-gallery="graduation">
-
-                    <img
-                        src="assets/images/gallery/06.jpg"
-                        loading="lazy"
-                        alt="Gallery">
-
-                </a>
-
-            </div>
-
-        </div>
-
+        <p class="countdown__message" id="countdownMessage"></p>
+      </div>
     </section>
 
-
-
-
-
-    <!-- ==========================================
-                    RSVP
-    =========================================== -->
-
-    <section class="rsvp section">
-
-        <div class="container">
-
-            <div class="section-heading" data-aos="fade-up">
-
-                <span class="section-subtitle">
-
-                    RSVP
-
-                </span>
-
-                <h2>
-
-                    Xác nhận tham dự
-
-                </h2>
-
+    <section class="section event-section" id="event">
+      <div class="container">
+        <div class="event-layout">
+          <div class="event-copy reveal reveal-left">
+            <p class="eyebrow eyebrow--blue">Thông tin buổi lễ</p>
+            <h2>Lễ tốt nghiệp</h2>
+            <p class="event-copy__lead">Sự kiện đánh dấu hành trình bốn năm học tập và trưởng thành.</p>
+            <div class="event-details">
+              <div class="event-detail"><span class="event-detail__icon">01</span><div><small>Thời gian</small><p>09:30 sáng<br>Thứ Bảy, ngày 08/08/2026</p></div></div>
+              <div class="event-detail"><span class="event-detail__icon">02</span><div><small>Địa điểm</small><p>Trường Đại học Văn hóa TP. Hồ Chí Minh – Cơ sở 1<br>51 Quốc Hương, phường An Khánh, TP. Hồ Chí Minh</p></div></div>
             </div>
-
-            <div class="form-wrapper glass">
-
-                <iframe
-                    src="https://docs.google.com/forms/d/e/1FAIpQLScVnoCCJNQKb-qlltM35e8S7WFeuv56BOWJq605OmrYdc2RpA/viewform?embedded=true"
-                    loading="lazy"
-                    frameborder="0"
-                    marginheight="0"
-                    marginwidth="0">
-
-                    Đang tải...
-
-                </iframe>
-
+            <div class="button-row">
+              <a class="button button--primary" href="https://maps.app.goo.gl/Lz5Hf9SBdwjTcXMJ9" target="_blank" rel="noopener">📍 Chỉ đường</a>
+              <a class="button button--outline" href="tel:0967102684">📞 Gọi ngay</a>
             </div>
-
+          </div>
+          <button class="venue-card reveal reveal-right" id="openLightbox" type="button" aria-label="Xem ảnh trường kích thước lớn">
+            <img src="assets/images/TRUONG.jpg" loading="lazy" alt="Khuôn viên Trường Đại học Văn hóa TP. Hồ Chí Minh">
+            <span class="venue-card__caption"><b>Địa điểm tổ chức</b><small>Chạm để xem ảnh lớn</small></span>
+          </button>
         </div>
-
+      </div>
     </section>
 
-    <!-- ==========================================
-                    FOOTER
-    =========================================== -->
-
-    <footer>
-
-        <div class="container">
-
-            <img
-                src="assets/images/logo-truong.webp"
-                class="footer-logo"
-                alt="Logo">
-
-            <h3>
-
-                Phạm Văn Quyết
-
-            </h3>
-
-            <p>
-
-                Graduation Ceremony 2026
-
-            </p>
-
-            <p>
-
-                Trường Đại học Văn hóa
-                TP. Hồ Chí Minh
-
-            </p>
-
-            <div class="footer-social">
-
-                <a href="tel:0967102684">
-
-                    <i class="fa-solid fa-phone"></i>
-
-                </a>
-
-                <a href="https://maps.app.goo.gl/Lz5Hf9SBdwjTcXMJ9"
-                    target="_blank">
-
-                    <i class="fa-solid fa-location-dot"></i>
-
-                </a>
-
-            </div>
-
-            <span>
-
-                © 2026 Phạm Văn Quyết.
-                All Rights Reserved.
-
-            </span>
-
+    <section class="section rsvp-section" id="rsvp">
+      <div class="container">
+        <div class="section-heading reveal reveal-up">
+          <p class="eyebrow eyebrow--blue">RSVP</p>
+          <h2>Xác nhận tham dự</h2>
+          <p>Phản hồi của bạn sẽ được lưu trực tiếp vào Google Form.</p>
         </div>
+        <div class="form-shell reveal reveal-up">
+          <iframe title="Biểu mẫu xác nhận tham dự" src="https://docs.google.com/forms/d/e/1FAIpQLScVnoCCJNQKb-qlltM35e8S7WFeuv56BOWJq605OmrYdc2RpA/viewform?embedded=true" loading="lazy">Đang tải…</iframe>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    </footer>
+  <footer class="footer">
+    <div class="container footer__inner reveal reveal-up">
+      <img src="assets/images/logo-truong.webp" alt="Logo trường">
+      <p class="eyebrow">Graduation Ceremony · 2026</p>
+      <h2>Phạm Văn Quyết</h2>
+      <p>Truyền thông Văn hóa<br>Trường Đại học Văn hóa TP. Hồ Chí Minh</p>
+      <div class="footer__links"><a href="tel:0967102684">0967 102 684</a><span>•</span><a href="https://maps.app.goo.gl/Lz5Hf9SBdwjTcXMJ9" target="_blank" rel="noopener">Xem bản đồ</a></div>
+      <small>© 2026 · Thiệp mời tốt nghiệp</small>
+    </div>
+  </footer>
 
+  <div class="music-player" id="musicPlayer" aria-label="Điều khiển nhạc">
+    <button id="musicToggle" type="button" aria-label="Phát hoặc tạm dừng nhạc">▶</button>
+    <button id="muteToggle" type="button" aria-label="Bật hoặc tắt tiếng">🔊</button>
+  </div>
+  <audio id="bgMusic" loop preload="metadata"><source src="assets/audio/graduation.mp3" type="audio/mpeg"></audio>
 
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Lên đầu trang">↑</button>
 
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Ảnh trường" hidden>
+    <button class="lightbox__close" id="closeLightbox" type="button" aria-label="Đóng">×</button>
+    <img src="assets/images/TRUONG.jpg" alt="Trường Đại học Văn hóa TP. Hồ Chí Minh">
+  </div>
 
-
-    <!-- ============================= -->
-
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-
-    <script src="assets/js/app.js"></script>
-
-    <script src="assets/js/countdown.js"></script>
-
-    <script src="assets/js/gallery.js"></script>
-
-    <script src="assets/js/music.js"></script>
-
-    <script src="assets/js/effects.js"></script>
-
+  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+  <script src="assets/js/app.js"></script>
 </body>
-
 </html>
